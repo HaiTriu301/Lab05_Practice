@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import {lazy, Suspense, useState} from "react";
 import Tabs from "./part3-patterns/ex1/Tabs";
+import Modal from "./part3-patterns/ex2/Modal.jsx";
 
 // Part 1
 const UserProfile = lazy(() =>
@@ -49,28 +50,52 @@ function Loading() {
 //     );
 // }
 
-// Part 3
+// Part 3.1
+// export default function App() {
+//     return (
+//         <div style={{ padding: 20 }}>
+//             <h3>Part 3 – Exercise 3.1</h3>
+//
+//             <Tabs defaultIndex={0}>
+//                 <Tabs.List>
+//                     <Tabs.Tab index={0}>React</Tabs.Tab>
+//                     <Tabs.Tab index={1}>Redux</Tabs.Tab>
+//                 </Tabs.List>
+//
+//                 <div style={{ margin: "10px 0" }}>----</div>
+//
+//                 <Tabs.Panel index={0}>
+//                     React is a JavaScript library for building UI.
+//                 </Tabs.Panel>
+//
+//                 <Tabs.Panel index={1}>
+//                     Redux is a state management library.
+//                 </Tabs.Panel>
+//             </Tabs>
+//         </div>
+//     );
+// }
+
+// Part 3.2
 export default function App() {
+    const [open, setOpen] = useState(false);
+
     return (
-        <div style={{ padding: 20 }}>
-            <h3>Part 3 – Exercise 3.1</h3>
+        <div
+            onClick={() => console.log("App div clicked")}
+            style={{
+                padding: 40,
+                border: "2px solid black",
+                overflow: "hidden",
+            }}
+        >
+            <h3>Part 3 – Exercise 3.2</h3>
 
-            <Tabs defaultIndex={0}>
-                <Tabs.List>
-                    <Tabs.Tab index={0}>React</Tabs.Tab>
-                    <Tabs.Tab index={1}>Redux</Tabs.Tab>
-                </Tabs.List>
+            <button onClick={() => setOpen(true)}>
+                Open Modal
+            </button>
 
-                <div style={{ margin: "10px 0" }}>----</div>
-
-                <Tabs.Panel index={0}>
-                    React is a JavaScript library for building UI.
-                </Tabs.Panel>
-
-                <Tabs.Panel index={1}>
-                    Redux is a state management library.
-                </Tabs.Panel>
-            </Tabs>
+            {open && <Modal onClose={() => setOpen(false)} />}
         </div>
     );
 }
